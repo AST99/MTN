@@ -49,7 +49,7 @@ import com.astdev.mtn.ui.theme.noir
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ValidationScreen(navController: NavHostController){
+fun ConfirmationScreen(navController: NavHostController){
     ChangeStatusBarColor(color = jauneMTN)
 
     var validationInput1 by remember { mutableStateOf("") }
@@ -135,7 +135,7 @@ fun ValidationScreen(navController: NavHostController){
                     Spacer(modifier = Modifier.padding(top = 160.dp))
 
                     Button(
-                        onClick = { navController.navigate("Accueil") },
+                        onClick = { navController.navigate("InfoClient") },
                         shape = RoundedCornerShape(20.dp),
                         colors = ButtonDefaults.buttonColors(noir),
                         modifier = Modifier
@@ -164,7 +164,7 @@ fun ValidationScreen(navController: NavHostController){
 @Preview(showSystemUi = true)
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun ValidationUI(){
+fun ConfirmationUI(){
 
     ChangeStatusBarColor(color = jauneMTN)
 
@@ -305,7 +305,7 @@ fun ValidationUI(){
                         )
                     )
 
-                    Spacer(modifier = Modifier.padding(top = 185.dp))
+                    Spacer(modifier = Modifier.padding(top = 175.dp))
 
                     Button(
                         onClick = { },

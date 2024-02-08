@@ -1,6 +1,7 @@
 package com.astdev.mtn
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,8 +14,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -41,22 +46,21 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.astdev.mtn.ui.theme.blanc
 import com.astdev.mtn.ui.theme.jauneMTN
 import com.astdev.mtn.ui.theme.noir
+import kotlinx.coroutines.launch
 
-val u = TransferDataClass("","")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun DepotScreen(navController: NavHostController){
-    //DepotScreenUI()
+@OptIn(ExperimentalMaterial3Api::class)@Composable
+fun CustomerNumber(navController: NavHostController){
 
     ChangeStatusBarColor(color = jauneMTN)
 
-    val phoneInput by remember { mutableStateOf("") }
-
-    var amountInput by remember { mutableStateOf("") }
+    var phoneInput by remember { mutableStateOf("") }
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -69,7 +73,6 @@ fun DepotScreen(navController: NavHostController){
                                 painter = painterResource(id = R.drawable.arrow_circle_left_2),
                                 contentDescription = null, modifier = Modifier.size(45.dp)
                             )
-
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -83,24 +86,15 @@ fun DepotScreen(navController: NavHostController){
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .padding(top = 70.dp, start = 20.dp, end = 20.dp)
+                        .padding(top = 70.dp, start = 30.dp, end = 30.dp)
                         .fillMaxSize()) {
 
-                    Row (modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 20.dp)){
-                        Text(text = "Dépôt mobile money",
-                            style = TextStyle(
-                                fontWeight = FontWeight(800),
-                                fontSize = 27.sp)
-                        )
-                    }
 
                     Row (modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 20.dp, bottom = 10.dp)
+                        .padding(top = 80.dp, bottom = 20.dp)
                     ){
-                        Text(text = "Montant",
+                        Text(text = "Numéro du client",
                             style = TextStyle(
                                 fontWeight = FontWeight(600),
                                 fontSize = 20.sp)
@@ -108,11 +102,11 @@ fun DepotScreen(navController: NavHostController){
                     }
 
                     OutlinedTextField(
-                        placeholder = { Text(text = "Entrez le montant de la transaction")},
-                        value = amountInput,
+                        placeholder = { Text(text = "05xxxxxxxx")},
+                        value = phoneInput,
                         singleLine = true,
                         shape = RoundedCornerShape(20.dp),
-                        onValueChange = { amountInput = it },
+                        onValueChange = { if (it.length<=10) phoneInput = it },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = noir,
                             focusedLabelColor = noir,
@@ -131,10 +125,7 @@ fun DepotScreen(navController: NavHostController){
                     Spacer(modifier = Modifier.padding(15.dp))
 
                     Button(
-                        onClick = {
-                            u.receiverPhone = phoneInput
-                            u.amount = amountInput
-                            navController.navigate("Succes") },
+                        onClick = { navController.navigate("Confirmation")},
                         shape = RoundedCornerShape(20.dp),
                         colors = ButtonDefaults.buttonColors(noir),
                         modifier = Modifier
@@ -151,23 +142,20 @@ fun DepotScreen(navController: NavHostController){
                             )
                         )
                     }
-
                 }
             }
         )
     }
+
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showSystemUi = true)
-@Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun DepotScreenUI(){
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CustomerNumberUI(){
 
-    ChangeStatusBarColor(color = jauneMTN)
-
-    var amountInput by remember { mutableStateOf("") }
-
+    var phoneInput by remember { mutableStateOf("") }
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -175,12 +163,11 @@ fun DepotScreenUI(){
                 CenterAlignedTopAppBar(
                     title = { },
                     navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
+                        IconButton(onClick = { /*navController.popBackStack()*/ }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.arrow_circle_left_2),
                                 contentDescription = null, modifier = Modifier.size(45.dp)
                             )
-
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -194,24 +181,15 @@ fun DepotScreenUI(){
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .padding(top = 70.dp, start = 20.dp, end = 20.dp)
+                        .padding(top = 70.dp, start = 30.dp, end = 30.dp)
                         .fillMaxSize()) {
 
-                    Row (modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 20.dp)){
-                        Text(text = "Dépôt mobile money",
-                            style = TextStyle(
-                                fontWeight = FontWeight(800),
-                                fontSize = 27.sp)
-                        )
-                    }
 
                     Row (modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 20.dp, bottom = 10.dp)
+                        .padding(top = 80.dp, bottom = 20.dp)
                     ){
-                        Text(text = "Montant",
+                        Text(text = "Numéro du client",
                             style = TextStyle(
                                 fontWeight = FontWeight(600),
                                 fontSize = 20.sp)
@@ -219,11 +197,11 @@ fun DepotScreenUI(){
                     }
 
                     OutlinedTextField(
-                        placeholder = { Text(text = "Entrez le montant de la transaction")},
-                        value = amountInput,
+                        placeholder = { Text(text = "05xxxxxxxx")},
+                        value = phoneInput,
                         singleLine = true,
                         shape = RoundedCornerShape(20.dp),
-                        onValueChange = { amountInput = it },
+                        onValueChange = { if (it.length<=10) phoneInput = it },
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = noir,
                             focusedLabelColor = noir,
@@ -242,7 +220,7 @@ fun DepotScreenUI(){
                     Spacer(modifier = Modifier.padding(15.dp))
 
                     Button(
-                        onClick = { },
+                        onClick = { /*navController.navigate("ActivationStatus") */},
                         shape = RoundedCornerShape(20.dp),
                         colors = ButtonDefaults.buttonColors(noir),
                         modifier = Modifier
@@ -259,9 +237,9 @@ fun DepotScreenUI(){
                             )
                         )
                     }
-
                 }
             }
         )
     }
+
 }

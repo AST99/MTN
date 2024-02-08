@@ -9,11 +9,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import com.astdev.mtn.ui.theme.MTNTheme
 import androidx.navigation.compose.rememberNavController
-import com.astdev.mtn.ui.theme.jauneMTN
+import com.astdev.mtn.navigation.SetupNavGraph
 
 
 class MainActivity : ComponentActivity() {

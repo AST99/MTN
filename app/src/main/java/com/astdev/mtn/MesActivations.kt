@@ -1,7 +1,6 @@
 package com.astdev.mtn
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -41,22 +40,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.astdev.mtn.ui.theme.jauneMTN
 import com.astdev.mtn.ui.theme.noir
 
-val u = TransferDataClass("","")
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun DepotScreen(navController: NavHostController){
-    //DepotScreenUI()
+fun MesActivation(navController: NavHostController){
 
     ChangeStatusBarColor(color = jauneMTN)
-
-    val phoneInput by remember { mutableStateOf("") }
-
-    var amountInput by remember { mutableStateOf("") }
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -89,69 +84,12 @@ fun DepotScreen(navController: NavHostController){
                     Row (modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 20.dp)){
-                        Text(text = "Dépôt mobile money",
+                        Text(text = "Mes activations",
                             style = TextStyle(
                                 fontWeight = FontWeight(800),
                                 fontSize = 27.sp)
                         )
                     }
-
-                    Row (modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, bottom = 10.dp)
-                    ){
-                        Text(text = "Montant",
-                            style = TextStyle(
-                                fontWeight = FontWeight(600),
-                                fontSize = 20.sp)
-                        )
-                    }
-
-                    OutlinedTextField(
-                        placeholder = { Text(text = "Entrez le montant de la transaction")},
-                        value = amountInput,
-                        singleLine = true,
-                        shape = RoundedCornerShape(20.dp),
-                        onValueChange = { amountInput = it },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = noir,
-                            focusedLabelColor = noir,
-                            unfocusedBorderColor = noir,
-                            cursorColor = noir,
-                        ),
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            keyboardType = KeyboardType.Phone,
-                            imeAction = ImeAction.Done
-                        ),
-                        modifier = Modifier
-                            .width(349.dp)
-                            .height(69.dp)
-                    )
-
-                    Spacer(modifier = Modifier.padding(15.dp))
-
-                    Button(
-                        onClick = {
-                            u.receiverPhone = phoneInput
-                            u.amount = amountInput
-                            navController.navigate("Succes") },
-                        shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(noir),
-                        modifier = Modifier
-                            .width(349.dp)
-                            .height(69.dp),
-                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
-                    ) {
-                        Text(
-                            text = "Valider",
-                            style = TextStyle(
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight(800),
-                                color = Color.White
-                            )
-                        )
-                    }
-
                 }
             }
         )
@@ -162,12 +100,9 @@ fun DepotScreen(navController: NavHostController){
 @Preview(showSystemUi = true)
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun DepotScreenUI(){
+fun MesActivationScreenUI(){
 
     ChangeStatusBarColor(color = jauneMTN)
-
-    var amountInput by remember { mutableStateOf("") }
-
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -200,66 +135,12 @@ fun DepotScreenUI(){
                     Row (modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 20.dp)){
-                        Text(text = "Dépôt mobile money",
+                        Text(text = "Mes activations",
                             style = TextStyle(
                                 fontWeight = FontWeight(800),
                                 fontSize = 27.sp)
                         )
                     }
-
-                    Row (modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, bottom = 10.dp)
-                    ){
-                        Text(text = "Montant",
-                            style = TextStyle(
-                                fontWeight = FontWeight(600),
-                                fontSize = 20.sp)
-                        )
-                    }
-
-                    OutlinedTextField(
-                        placeholder = { Text(text = "Entrez le montant de la transaction")},
-                        value = amountInput,
-                        singleLine = true,
-                        shape = RoundedCornerShape(20.dp),
-                        onValueChange = { amountInput = it },
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = noir,
-                            focusedLabelColor = noir,
-                            unfocusedBorderColor = noir,
-                            cursorColor = noir,
-                        ),
-                        keyboardOptions = KeyboardOptions.Default.copy(
-                            keyboardType = KeyboardType.Phone,
-                            imeAction = ImeAction.Done
-                        ),
-                        modifier = Modifier
-                            .width(349.dp)
-                            .height(69.dp)
-                    )
-
-                    Spacer(modifier = Modifier.padding(15.dp))
-
-                    Button(
-                        onClick = { },
-                        shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(noir),
-                        modifier = Modifier
-                            .width(349.dp)
-                            .height(69.dp),
-                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
-                    ) {
-                        Text(
-                            text = "Valider",
-                            style = TextStyle(
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight(800),
-                                color = Color.White
-                            )
-                        )
-                    }
-
                 }
             }
         )

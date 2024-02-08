@@ -1,7 +1,6 @@
 package com.astdev.mtn
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -45,11 +44,10 @@ import androidx.navigation.NavHostController
 import com.astdev.mtn.ui.theme.jauneMTN
 import com.astdev.mtn.ui.theme.noir
 
-val u = TransferDataClass("","")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun DepotScreen(navController: NavHostController){
+fun ModificationPiece(navController: NavHostController){
     //DepotScreenUI()
 
     ChangeStatusBarColor(color = jauneMTN)
@@ -88,19 +86,9 @@ fun DepotScreen(navController: NavHostController){
 
                     Row (modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 20.dp)){
-                        Text(text = "Dépôt mobile money",
-                            style = TextStyle(
-                                fontWeight = FontWeight(800),
-                                fontSize = 27.sp)
-                        )
-                    }
-
-                    Row (modifier = Modifier
-                        .fillMaxWidth()
                         .padding(top = 20.dp, bottom = 10.dp)
                     ){
-                        Text(text = "Montant",
+                        Text(text = "Pièce d’identification",
                             style = TextStyle(
                                 fontWeight = FontWeight(600),
                                 fontSize = 20.sp)
@@ -108,7 +96,7 @@ fun DepotScreen(navController: NavHostController){
                     }
 
                     OutlinedTextField(
-                        placeholder = { Text(text = "Entrez le montant de la transaction")},
+                        placeholder = { Text(text = "Entrez le type de pièce") },
                         value = amountInput,
                         singleLine = true,
                         shape = RoundedCornerShape(20.dp),
@@ -131,10 +119,7 @@ fun DepotScreen(navController: NavHostController){
                     Spacer(modifier = Modifier.padding(15.dp))
 
                     Button(
-                        onClick = {
-                            u.receiverPhone = phoneInput
-                            u.amount = amountInput
-                            navController.navigate("Succes") },
+                        onClick = { navController.navigate("InfoClient") },
                         shape = RoundedCornerShape(20.dp),
                         colors = ButtonDefaults.buttonColors(noir),
                         modifier = Modifier
@@ -143,7 +128,7 @@ fun DepotScreen(navController: NavHostController){
                         elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
                     ) {
                         Text(
-                            text = "Valider",
+                            text = "Enregistrer",
                             style = TextStyle(
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight(800),
@@ -162,7 +147,7 @@ fun DepotScreen(navController: NavHostController){
 @Preview(showSystemUi = true)
 @Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun DepotScreenUI(){
+fun ModificationPieceUI(){
 
     ChangeStatusBarColor(color = jauneMTN)
 
@@ -199,19 +184,9 @@ fun DepotScreenUI(){
 
                     Row (modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 20.dp)){
-                        Text(text = "Dépôt mobile money",
-                            style = TextStyle(
-                                fontWeight = FontWeight(800),
-                                fontSize = 27.sp)
-                        )
-                    }
-
-                    Row (modifier = Modifier
-                        .fillMaxWidth()
                         .padding(top = 20.dp, bottom = 10.dp)
                     ){
-                        Text(text = "Montant",
+                        Text(text = "Pièce d’identification",
                             style = TextStyle(
                                 fontWeight = FontWeight(600),
                                 fontSize = 20.sp)
@@ -219,7 +194,7 @@ fun DepotScreenUI(){
                     }
 
                     OutlinedTextField(
-                        placeholder = { Text(text = "Entrez le montant de la transaction")},
+                        placeholder = { Text(text = "Entrez le type de pièce") },
                         value = amountInput,
                         singleLine = true,
                         shape = RoundedCornerShape(20.dp),
@@ -251,7 +226,7 @@ fun DepotScreenUI(){
                         elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
                     ) {
                         Text(
-                            text = "Valider",
+                            text = "Enregistrer",
                             style = TextStyle(
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight(800),

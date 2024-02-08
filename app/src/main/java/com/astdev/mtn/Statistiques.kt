@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -52,19 +55,17 @@ import com.astdev.mtn.ui.theme.jauneMTN
 import com.astdev.mtn.ui.theme.noir
 
 @Composable
-fun StatisticScreen(navController: NavHostController){
-    StatisticScreenUI()
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showSystemUi = true)
-@Composable
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-fun StatisticScreenUI(){
+fun StatisticScreen(navController: NavHostController){
+    //StatisticScreenUI()
 
     ChangeStatusBarColor(color = jauneMTN)
-    val nbrActivations = 15
-    var phoneInput by remember { mutableStateOf("") }
+    var momoStats = 8
+    var gsmStats = 0
+    var dataStats = 2
+    var mtnTvStats = 2
+    var ayobaStats = 1
 
     var btnJourIsClicked by remember { mutableStateOf(true) }
     var btnSemaineIsClicked by remember { mutableStateOf(false) }
@@ -76,9 +77,9 @@ fun StatisticScreenUI(){
                 CenterAlignedTopAppBar(
                     title = { },
                     navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
+                        IconButton(onClick = { navController.popBackStack()}) {
                             Icon(
-                                painter = painterResource(id = R.drawable.arrowcircleleft),
+                                painter = painterResource(id = R.drawable.arrow_circle_left_2),
                                 contentDescription = null, modifier = Modifier.size(45.dp)
                             )
 
@@ -115,7 +116,10 @@ fun StatisticScreenUI(){
                             .fillMaxWidth()
                             .padding(top = 5.dp)
                     ){
-                        BtnPeriode(modifier = Modifier.width(110.dp).height(39.dp).weight(1f),
+                        BtnPeriode(modifier = Modifier
+                            .width(110.dp)
+                            .height(39.dp)
+                            .weight(1f),
                             txt = "Jour",
                             onClick = {
                                 btnJourIsClicked = !btnJourIsClicked
@@ -123,7 +127,10 @@ fun StatisticScreenUI(){
                                 btnSemaineIsClicked = false },
                             isClicked = btnJourIsClicked)
 
-                        BtnPeriode(modifier = Modifier.width(110.dp).height(39.dp).weight(1f),
+                        BtnPeriode(modifier = Modifier
+                            .width(110.dp)
+                            .height(39.dp)
+                            .weight(1f),
                             txt = "Semaine",
                             onClick = {
                                 btnSemaineIsClicked = !btnSemaineIsClicked
@@ -132,7 +139,10 @@ fun StatisticScreenUI(){
                             },
                             isClicked = btnSemaineIsClicked)
 
-                        BtnPeriode(modifier = Modifier.width(110.dp).height(39.dp).weight(1f),
+                        BtnPeriode(modifier = Modifier
+                            .width(110.dp)
+                            .height(39.dp)
+                            .weight(1f),
                             txt = "Mois",
                             onClick = {
                                 btnMoisIsClicked = !btnMoisIsClicked
@@ -140,6 +150,489 @@ fun StatisticScreenUI(){
                                 btnSemaineIsClicked = false
                             },
                             isClicked = btnMoisIsClicked)
+                    }
+                }
+
+                if (btnJourIsClicked){
+                    momoStats = 8
+                    gsmStats = 0
+                    dataStats = 2
+                    mtnTvStats = 2
+                    ayobaStats = 1
+                }
+                else if (btnSemaineIsClicked){
+                    momoStats = 100
+                    gsmStats = 15
+                    dataStats = 455
+                    mtnTvStats = 20
+                    ayobaStats = 159
+                }
+                else if (btnMoisIsClicked){
+                    momoStats = 4000
+                    gsmStats = 270
+                    dataStats = 4555
+                    mtnTvStats = 500
+                    ayobaStats = 5003
+                }
+
+                LazyVerticalStaggeredGrid(
+                    columns = StaggeredGridCells.Fixed(2),
+                    modifier = Modifier.fillMaxSize().padding(top = 180.dp),
+                    contentPadding = PaddingValues(15.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalItemSpacing = 16.dp
+                ){
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "Momo",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$momoStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "GSM",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$gsmStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "Data",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$dataStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "Ayoba",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$ayobaStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "MTN TV",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$mtnTvStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showSystemUi = true)
+@Composable
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+fun StatisticScreenUI(){
+
+    ChangeStatusBarColor(color = jauneMTN)
+    var momoStats = 8
+    var gsmStats = 0
+    var dataStats = 2
+    var mtnTvStats = 2
+    var ayobaStats = 1
+
+    var btnJourIsClicked by remember { mutableStateOf(true) }
+    var btnSemaineIsClicked by remember { mutableStateOf(false) }
+    var btnMoisIsClicked by remember { mutableStateOf(false) }
+
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = { },
+                    navigationIcon = {
+                        IconButton(onClick = {  }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.arrow_circle_left_2),
+                                contentDescription = null, modifier = Modifier.size(45.dp)
+                            )
+
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = jauneMTN,
+                        titleContentColor = Color.Black,
+                    ),
+                )
+            },
+            containerColor = jauneMTN,
+            content = {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(top = 70.dp, start = 20.dp, end = 20.dp)
+                        .fillMaxSize()) {
+
+                    Row (modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 20.dp)){
+                        Text(text = "Statistique d'activation",
+                            style = TextStyle(
+                                fontWeight = FontWeight(800),
+                                fontSize = 27.sp)
+                        )
+                    }
+
+                    Row (
+                        horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally),
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 5.dp)
+                    ){
+                        BtnPeriode(modifier = Modifier
+                            .width(110.dp)
+                            .height(39.dp)
+                            .weight(1f),
+                            txt = "Jour",
+                            onClick = {
+                                btnJourIsClicked = !btnJourIsClicked
+                                btnMoisIsClicked = false
+                                btnSemaineIsClicked = false },
+                            isClicked = btnJourIsClicked)
+
+                        BtnPeriode(modifier = Modifier
+                            .width(110.dp)
+                            .height(39.dp)
+                            .weight(1f),
+                            txt = "Semaine",
+                            onClick = {
+                                btnSemaineIsClicked = !btnSemaineIsClicked
+                                btnJourIsClicked = false
+                                btnMoisIsClicked = false
+                            },
+                            isClicked = btnSemaineIsClicked)
+
+                        BtnPeriode(modifier = Modifier
+                            .width(110.dp)
+                            .height(39.dp)
+                            .weight(1f),
+                            txt = "Mois",
+                            onClick = {
+                                btnMoisIsClicked = !btnMoisIsClicked
+                                btnJourIsClicked = false
+                                btnSemaineIsClicked = false
+                            },
+                            isClicked = btnMoisIsClicked)
+                    }
+                }
+
+                if (btnJourIsClicked){
+                    momoStats = 8
+                    gsmStats = 0
+                    dataStats = 2
+                    mtnTvStats = 2
+                    ayobaStats = 1
+                }
+                else if (btnSemaineIsClicked){
+                    momoStats = 100
+                    gsmStats = 15
+                    dataStats = 455
+                    mtnTvStats = 20
+                    ayobaStats = 159
+                }
+                else if (btnMoisIsClicked){
+                    momoStats = 4000
+                    gsmStats = 270
+                    dataStats = 4555
+                    mtnTvStats = 500
+                    ayobaStats = 5003
+                }
+
+                LazyVerticalStaggeredGrid(
+                    columns = StaggeredGridCells.Fixed(2),
+                    modifier = Modifier.fillMaxSize().padding(top = 180.dp),
+                    contentPadding = PaddingValues(15.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalItemSpacing = 16.dp
+                    ){
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "Momo",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$momoStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "GSM",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$gsmStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "Data",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$dataStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "Ayoba",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$ayobaStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    item {
+                        Card (
+                            modifier = Modifier
+                                .width(175.dp)
+                                .height(93.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.Black),
+                            shape = RoundedCornerShape(20.dp)
+                        ){
+                            Row(modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 13.dp, start = 20.dp, end = 20.dp)){
+                                Column (modifier = Modifier.weight(1f)){
+                                    Text(text = "MTN TV",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            fontSize = 25.sp,
+                                            color = Color.White
+                                        )
+                                    )
+
+                                    Text(text = "$mtnTvStats",
+                                        style = TextStyle(
+                                            fontWeight = FontWeight(700),
+                                            color = jauneMTN,
+                                            fontSize = 30.sp
+                                        )
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }
